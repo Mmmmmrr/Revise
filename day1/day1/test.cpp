@@ -191,3 +191,72 @@ public:
 		return true;
 	}
 };
+
+
+//两种排序方法
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+bool DicSort(vector<string> s)
+{
+	for (int i = 0; i < s.size() - 1; ++i)
+	{
+		if (s[i] > s[i + 1])
+			return false;
+	}
+	return true;
+}
+bool LenSort(vector<string> s)
+{
+	for (int i = 0; i < s.size() - 1; ++i)
+	{
+		if (s[i].length() > s[i + 1].length())
+			return false;
+	}
+	return true;
+}
+int main()
+{
+	int n;
+	cin >> n;
+	vector<string> s;
+	s.resize(n);
+	for (auto& str : s)
+	{
+		cin >> str;
+	}
+	if (DicSort(s) && LenSort(s))
+		cout << "both" << endl;
+	else if (DicSort(s))
+		cout << "lexicographically" << endl;
+	else if (LenSort(s))
+		cout << "lengths" << endl;
+	else
+		cout << "none" << endl;
+	return 0;
+}
+
+
+//最小公倍数
+#include <iostream>
+using namespace std;
+int GYS(int& a, int& b)
+{
+	while (int c = a%b)
+	{
+		a = b;
+		b = c;
+	}
+	return b;
+}
+int main()
+{
+	int A, B;
+	cin >> A >> B;
+	int C = A*B;
+	cout << C / GYS(A, B) << endl;
+
+	return 0;
+}
