@@ -608,3 +608,58 @@ int main()
 	}
 	return 0;
 }
+
+//最接近的数
+class CloseNumber {
+public:
+	int Count(int x)
+	{
+		int count = 0;
+		while (x)
+		{
+			if (x & 1)
+				count++;
+			x = x >> 1;
+		}
+		return count;
+	}
+	vector<int> getCloseNumber(int x) {
+		// write code here
+		vector<int> v;
+		int ret = Count(x);
+		int i;
+		for (i = x - 1; Count(i) != ret&& i > 0; i--);
+		v.push_back(i);
+		for (i = x + 1; Count(i) != ret; i++);
+		v.push_back(i);
+		return v;
+	}
+};
+
+
+//二进制小数
+class BinDecimal {
+public:
+	string printBin(double num) {
+		// write code here
+		string s = "0.";
+		double base = 0.5;
+		while (num > 0)
+		{
+			if (num >= base)
+			{
+				num -= base;
+				s += "1";
+			}
+			else
+				s += "0";
+			base /= 2;
+			if (s.size() > 32)
+			{
+				s = "Error";
+				break;
+			}
+		}
+		return s;
+	}
+};
