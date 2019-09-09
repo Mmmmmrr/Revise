@@ -663,3 +663,53 @@ public:
 		return s;
 	}
 };
+
+
+// ÷Ã◊Œ Ã‚
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+class Gloves {
+public:
+	int findMinimum(int n, vector<int> left, vector<int> right) {
+		// write code here
+		int sum = 0;
+		int left_sum = 0, left_min = INT_MAX;
+		int right_sum = 0, right_min = INT_MAX;
+		for (int i = 0; i < n; i++)
+		{
+			if (left[i] * right[i] == 0)
+				sum += left[i] + right[i];
+			else
+			{
+				left_sum += left[i];
+				right_sum += right[i];
+				left_min = min(left_min, left[i]);
+				right_min = min(right_min, right[i]);
+			}
+		}
+		return sum + min(left_sum - left_min + 1, right_sum - right_min + 1) + 1;
+	}
+};
+int main()
+{
+	/*int n = 4;
+	vector<int> left{ 0, 7, 1, 6 };
+	vector<int> right{ 1, 5, 0, 6 };*/
+	int n = 0;
+	cin >> n;
+	vector<int> left(n);
+	vector<int> right(n);
+	for (int i = 0; i < n; i++)
+	{
+		cin >> left[i];
+	}
+	for (int i = 0; i < n; i++)
+	{
+		cin >> right[i];
+	}
+	cout << Gloves().findMinimum(n, left, right) << endl;
+	system("pause");
+	return 0;
+}
