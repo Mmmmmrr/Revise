@@ -713,3 +713,84 @@ int main()
 	system("pause");
 	return 0;
 }
+
+
+//杨辉三角形的变形
+#include <iostream>
+#include <vector>
+using namespace std;
+int main()
+{
+	int n, m;
+	while (cin >> n)
+	{
+		m = 2 * n - 1;
+		vector<vector<int>> dp(n, vector<int>(m, 0));
+		dp[0][0] = 1;
+		for (int i = 1; i < n; i++)
+		{
+			dp[i][0] = dp[i][2 * i] = 1;
+			for (int j = 1; j < 2 * i; j++)
+			{
+				if (j == 1)
+					dp[i][j] = dp[i - 1][j] + dp[i - 1][j - 1];
+				else
+					dp[i][j] = dp[i - 1][j - 2] + dp[i - 1][j - 1] + dp[i - 1][j];
+			}
+		}
+		int k;
+		for (k = 0; k < m; k++)
+		{
+			if (dp[n - 1][k] % 2 == 0 && dp[n - 1][k] != 0)
+			{
+				cout << k + 1 << endl;
+				break;
+			}
+		}
+		if (k == m)
+			cout << -1 << endl;
+	}
+	return 0;
+}
+
+//扑克牌大小
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+int main()
+{
+	string str;
+	while (getline(cin, str))
+	{
+		if (str.find("joker JOKER") != -1)
+			cout << "joker JOKER" << endl;
+		else
+		{
+			int base = str.find('-');
+			string str1 = str.substr(0, base);
+			string str2 = str.substr(base + 1);
+			int s1 = count(str1.begin(), str1.end(), ' ');
+			int s2 = count(str2.begin(), str2.end(), ' ');
+			string first1 = str1.substr(0, str1.find(' '));
+			string first2 = str2.substr(0, str2.find(' '));
+			string s = "345678910JQKA2jokerJOKER";
+			if (s1 == s2)
+			{
+				if (s.find(first1) > s.find(first2))
+					cout << str1 << endl;
+				else
+					cout << str2 << endl;
+			}
+			else{
+				if (s1 == 3)
+					cout << str1 << endl;
+				else if (s2 == 3)
+					cout << str2 << endl;
+				else
+					cout << "ERROR" << endl;
+			}
+		}
+	}
+	return 0;
+}
