@@ -794,3 +794,72 @@ int main()
 	}
 	return 0;
 }
+
+
+//汽水瓶
+#include <iostream>
+#include <vector>
+using namespace std;
+int Num(int n)
+{
+	int sum = 0;
+	while (n > 1)
+	{
+		int b = n / 3;
+		int c = n % 3;
+		sum += b;
+		n = b + c;
+		if (n == 2)
+		{
+			sum++;
+			break;
+		}
+	}
+	return sum;
+}
+
+int main()
+{
+	int n;
+	while (cin >> n)
+	{
+		cout << Num(n) << endl;;
+	}
+	return 0;
+}
+
+//两个字符最长公共字符串
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+int main()
+{
+	string a, b;
+	while (cin >> a >> b)
+	{
+		if (a.size() > b.size())
+			swap(a, b);
+		int max = 0;
+		int start = 0;
+		int len1 = a.size();
+		int len2 = b.size();
+
+		vector<vector<int>> v(len1 + 1, vector<int>(len2 + 1, 0));
+		for (int i = 1; i < len1; i++)
+		{
+			for (int j = 1; j < len2; j++)
+			{
+				if (a[i - 1] == b[j - 1])
+					v[i][j] = v[i - 1][j - 1] + 1;
+				if (v[i][j] > max)
+				{
+					max = v[i][j];
+					start = i - max;
+				}
+			}
+		}
+		cout << a.substr(start, max) << endl;
+	}
+	return 0;
+}
